@@ -1,0 +1,52 @@
+.filterContainer {
+  padding: 1rem;
+  background-color: white;
+  width: 100%;
+}
+.header {
+  padding: .5rem;
+  gap: .5rem;
+  width: 100%;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.header div {
+  display: flex;
+  align-items: center;
+}
+
+.header svg {
+  height:2rem;
+}
+.header h2 {
+  font-size: 1.25rem;
+}
+
+.header p {
+  color: grey;
+  font-size: 0.85rem;
+}
+
+.filterChoice {
+  padding-top: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.dateContainer {
+  display: flex;
+  gap: 0.5rem;
+}
+
+@media (max-width: 40rem) {
+  .filterChoice {
+    flex-direction: column;
+  }
+}
+@media (max-width: 30rem) {
+  .dateContainer {
+    flex-direction: column;
+  }
+}

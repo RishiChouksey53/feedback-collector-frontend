@@ -1,0 +1,36 @@
+.header {
+  font-size: 1.25rem;
+  padding: 1.25rem 1rem;
+}
+
+.feedbackForm {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: white;
+  padding: 1rem;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+
+.userDetails {
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+}
+
+.userDetails div {
+  width: 100%;
+}
+
+.btn {
+  margin-inline-start: auto;
+  margin-top: 0.625rem;
+}
+
+@media (max-width: 30rem) {
+  .userDetails {
+    flex-direction: column;
+    gap: 0;
+  }
+}
