@@ -21,7 +21,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.375rem;
+  gap: .5rem;
 }
 
 .navLeft h2 {
@@ -32,7 +32,7 @@
   background-color: rgba(0, 0, 255, 0.1);
   padding: 0.375rem;
   border-radius: 0.5rem;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   color: #3c83f6;
 }
 
@@ -50,4 +50,10 @@
   .navBar {
     padding-inline: 4rem;
   }
+}
+
+@media (min-width:62rem) {
+   .navLeft h2 {
+    font-size: 1.5rem;
+   }
 }
