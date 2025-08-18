@@ -1,6 +1,7 @@
+import { useState } from "react";
 import Styles from "./Navbar.module.css";
 
-const Navbar = () => {
+const Navbar = ({ count }) => {
   return (
     <div className={Styles.navBar}>
       <div className={Styles.navLeft}>
@@ -16,7 +17,7 @@ const Navbar = () => {
         <div>
           <i className="fa-regular fa-user"></i>
           &nbsp;
-          <span>0</span>
+          <span>{count}</span>
         </div>
         <p>Total Feedback</p>
       </div>

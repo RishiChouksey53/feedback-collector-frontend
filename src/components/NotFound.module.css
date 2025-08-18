@@ -1,0 +1,20 @@
+.notFound {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 0.625;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.notFound i {
+  color: darkslategray;
+  font-size: 2.5rem;
+}
+
+.notFound h3 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: darkslategray;
+}

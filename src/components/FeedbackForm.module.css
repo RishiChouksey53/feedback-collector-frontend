@@ -13,6 +13,27 @@
   border-bottom-right-radius: 0.5rem;
 }
 
+.feedbackForm label {
+  color: #808080;
+}
+
+.feedbackForm textarea {
+  resize: vertical;
+  min-width: 100%;
+  white-space: pre-wrap;
+}
+
+textarea::-webkit-scrollbar {
+  width: 0.625rem;
+}
+
+textarea::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 8px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+
 .userDetails {
   width: 100%;
   display: flex;
@@ -32,5 +53,15 @@
   .userDetails {
     flex-direction: column;
     gap: 0;
+  }
+}
+
+.btn {
+  width: 100%;
+}
+
+@media (min-width: 62rem) {
+  .header {
+    font-size: 1.5rem;
   }
 }

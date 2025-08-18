@@ -4,8 +4,7 @@
   width: 100%;
 }
 .header {
-  padding: .5rem;
-  gap: .5rem;
+  padding: 0.5rem;
   width: 100%;
   padding-bottom: 1rem;
   margin-bottom: 1rem;
@@ -18,14 +17,16 @@
 }
 
 .header svg {
-  height:2rem;
+  height: 2rem;
+  padding-right: .125rem;
 }
 .header h2 {
   font-size: 1.25rem;
 }
 
 .header p {
-  color: grey;
+  color: #808080;
+  padding-inline-start: 0.65rem;
   font-size: 0.85rem;
 }
 
@@ -33,6 +34,9 @@
   padding-top: 0.5rem;
   display: flex;
   gap: 0.5rem;
+}
+.filterChoice label {
+  color: #808080;
 }
 
 .dateContainer {
@@ -45,8 +49,41 @@
     flex-direction: column;
   }
 }
-@media (max-width: 30rem) {
+@media (max-width: 25rem) {
   .dateContainer {
     flex-direction: column;
   }
 }
+
+.filterBottom {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 0.5rem;
+  width: 100%;
+}
+
+@media (min-width: 62rem) {
+  .header h2 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 30rem) {
+  .filterChoice {
+    width: 100%;
+  }
+  .filterBottom button {
+    width: 100%;
+  }
+  .filterBottom {
+    flex-direction: column;
+  }
+}
+
+.filterBottom button {
+  width: 100%;
+}
+
+
