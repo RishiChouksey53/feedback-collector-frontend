@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import Styles from "./Navbar.module.css";
-import { MyContext } from "../contexts/MyContext";
+import { MyContext } from "../MyContext";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Navbar = () => {

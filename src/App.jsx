@@ -10,7 +10,7 @@ import {
 import Auth from "./pages/Auth";
 import Navbar from "./components/Navbar";
 import DashboardPage from "./pages/dashboard/DashboardPage";
-import { MyContext } from "./contexts/MyContext";
+import { MyContext } from "./MyContext";
 
 const App = () => {
   const [isLoginPage, setIsLoginPage] = useState(true);

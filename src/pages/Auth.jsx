@@ -6,7 +6,7 @@ import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { ScaleLoader } from "react-spinners";
 import { loginUser, registerUser } from "../services/authServices";
 import { useNavigate } from "react-router-dom";
-import { MyContext } from "../contexts/MyContext";
+import { MyContext } from "../MyContext";
 
 const Auth = ({isLoginPage }) => {
   const navigate = useNavigate();

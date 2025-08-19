@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import AdminDashboard from "./AdminDashboard";
 import UserDashboard from "./UserDashboard";
 import Styles from "./DashboardPage.module.css";
-import { MyContext } from "../../contexts/MyContext";
+import { MyContext } from "../../MyContext";
 
 const DashboardPage = () => {
   const { user } = useContext(MyContext);
