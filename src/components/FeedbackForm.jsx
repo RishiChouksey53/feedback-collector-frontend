@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import Styles from "./FeedbackForm.module.css";
 import { v4 as uuidv4 } from "uuid";
+import { addFeedback } from "../services/feedbackServices";
 
-const FeedbackForm = () => {
+const FeedbackForm = ({ setFeedbackEntries, setCount }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -13,18 +14,19 @@ const FeedbackForm = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    setFormData(() => [
-      {
-        ...formData,
-        date: new Date().toLocaleDateString("en-GB"),
-        id: uuidv4(),
-      },
-    ]);
+    const newFeedback = {
+      ...formData,
+      date: new Date().toLocaleDateString("en-CA"),
+      id: uuidv4(),
+    };
+    setFeedbackEntries(addFeedback(newFeedback));
+    setCount((prev) => prev + 1);
     setFormData({
       name: "",
       email: "",
       message: "",
       date: "",
+      id: "",
     });
   }
 

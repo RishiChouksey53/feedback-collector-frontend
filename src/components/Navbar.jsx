@@ -22,7 +22,7 @@ const Navbar = () => {
         {/* <div>
           <i className="fa-regular fa-user"></i>
           &nbsp;
-          <span>0</span>
+          <span>{count}</span>
         </div>
         <p>Total Feedback</p> */}
         <button className="secondaryButton"

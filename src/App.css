@@ -51,8 +51,8 @@ label:has(+ textarea:focus) {
 button {
   text-transform: capitalize;
   width: fit-content;
-  padding: 0.375rem 0.625rem;
-  border-radius: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.375rem;
   font-weight: 500;
   border: none;
   cursor: pointer;
@@ -64,4 +64,22 @@ button {
 
 button:hover {
   background-color: #2563eb;
+}
+
+.secondaryButton {
+  background-color: #f3f4f6;
+  color: #375151;
+  text-transform: capitalize;
+  width: fit-content;
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: all 0.2s ease-in;
+}
+
+.secondaryButton:hover {
+  background-color: #e5e7eb;
 }
