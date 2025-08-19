@@ -1,7 +1,12 @@
-import { useState } from "react";
+import { useContext } from "react";
 import Styles from "./Navbar.module.css";
+import { MyContext } from "../MyContext";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
-const Navbar = ({ count }) => {
+const Navbar = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { user, setUser } = useContext(MyContext);
   return (
     <div className={Styles.navBar}>
       <div className={Styles.navLeft}>
@@ -14,12 +19,38 @@ const Navbar = ({ count }) => {
         </div>
       </div>
       <div className={Styles.navRight}>
-        <div>
+        {/* <div>
           <i className="fa-regular fa-user"></i>
           &nbsp;
           <span>{count}</span>
         </div>
-        <p>Total Feedback</p>
+        <p>Total Feedback</p> */}
+        <button className="secondaryButton"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          <i class="fa fa-home" aria-hidden="true"></i>
+        </button>
+        {location.pathname !== "/login" &&
+          location.pathname !== "/register" &&
+          (user ? (
+            <button
+              onClick={() => {
+                setUser(null);
+              }}
+            >
+              Sign Out
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                navigate("/login");
+              }}
+            >
+              Sign in
+            </button>
+          ))}
       </div>
     </div>
   );
