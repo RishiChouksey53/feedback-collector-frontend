@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Styles from "./FeedbackForm.module.css";
 import { v4 as uuidv4 } from "uuid";
 import { addFeedback } from "../services/feedbackServices";
+import { toast } from "react-toastify";
 
 const FeedbackForm = ({ setFeedbackEntries, setCount }) => {
   const [formData, setFormData] = useState({
@@ -19,6 +20,7 @@ const FeedbackForm = ({ setFeedbackEntries, setCount }) => {
       date: new Date().toLocaleDateString("en-CA"),
       id: uuidv4(),
     };
+    toast.success("Feedback added successfully!");
     setFeedbackEntries(addFeedback(newFeedback));
     setCount((prev) => prev + 1);
     setFormData({

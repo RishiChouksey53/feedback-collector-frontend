@@ -3,6 +3,7 @@ import Styles from "./FeedbackEntries.module.css";
 import ConfirmDelete from "./ConfirmDelete";
 import { deleteFeedback } from "../services/feedbackServices";
 import NotFound from "./NotFound";
+import { toast } from "react-toastify";
 
 const FeedbackEntries = ({ feedbackEntries, setFeedbackEntries, setCount }) => {
   // State for tracking feedback to delete
@@ -24,6 +25,7 @@ const FeedbackEntries = ({ feedbackEntries, setFeedbackEntries, setCount }) => {
   function onDeleteHandler() {
     setFeedbackEntries(deleteFeedback(selectFeedback.id));
     setCount((prev) => prev - 1);
+    toast.success("Feedback deleted successfully!");
   }
 
   return (

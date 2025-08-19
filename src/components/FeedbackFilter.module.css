@@ -18,7 +18,7 @@
 
 .header svg {
   height: 2rem;
-  padding-right: .125rem;
+  padding-right: 0.125rem;
 }
 .header h2 {
   font-size: 1.25rem;
@@ -42,6 +42,10 @@
 .dateContainer {
   display: flex;
   gap: 0.5rem;
+}
+
+.dateContainer div {
+  flex: 1;
 }
 
 @media (max-width: 40rem) {
@@ -85,5 +89,3 @@
 .filterBottom button {
   width: 100%;
 }
-
-
