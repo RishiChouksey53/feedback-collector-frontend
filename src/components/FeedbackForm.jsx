@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Styles from "./FeedbackForm.module.css";
 import { v4 as uuidv4 } from "uuid";
 import { addFeedback } from "../services/feedbackServices";
+import { MyContext } from "../MyContext";
 
-const FeedbackForm = ({ setFeedbackEntries, setCount }) => {
+const FeedbackForm = () => {
+  const { setFeedbackEntries, setCount } = useContext(MyContext);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -55,7 +57,7 @@ const FeedbackForm = ({ setFeedbackEntries, setCount }) => {
           <div>
             <label htmlFor="email">Email</label>
             <input
-              placeholder="your email@gmail.com"
+              placeholder="Your email@gmail.com"
               id="email"
               type="email"
               name="email"

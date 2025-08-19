@@ -1,7 +1,8 @@
 .filterContainer {
   padding: 1rem;
   background-color: white;
-  width: 100%;
+  width: 100%; 
+  max-width: 50rem;
 }
 .header {
   padding: 0.5rem;
@@ -81,9 +82,4 @@
     flex-direction: column;
   }
 }
-
-.filterBottom button {
-  width: 100%;
-}
-
 

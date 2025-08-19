@@ -25,14 +25,7 @@ const Navbar = () => {
           <span>{count}</span>
         </div>
         <p>Total Feedback</p> */}
-        <button className="secondaryButton"
-          onClick={() => {
-            navigate("/");
-          }}
-        >
-          <i class="fa fa-home" aria-hidden="true"></i>
-        </button>
-        {location.pathname !== "/login" &&
+        {/* {location.pathname !== "/login" &&
           location.pathname !== "/register" &&
           (user ? (
             <button
@@ -50,7 +43,41 @@ const Navbar = () => {
             >
               Sign in
             </button>
-          ))}
+          ))} */}
+        <Link className={Styles.navLink} to={"/"}>
+          Home
+        </Link>
+        {user?.role === "admin" && (
+          <Link className={Styles.navLink} to={"/adminPanel"}>
+            Admin Panel
+          </Link>
+        )}
+        {location.pathname !== "/login" && !user && (
+          <Link className={Styles.navLink} to={"/login"}>
+            Login
+          </Link>
+        )}
+        {location.pathname === "/login" && (
+          <Link className={Styles.navLink} to={"/register"}>
+            SignUp
+          </Link>
+        )}
+        {user && (
+          <>
+            <Link
+              onClick={() => {
+                setUser(null);
+              }}
+              className={Styles.navLink}
+              to={""}
+            >
+              Logout
+            </Link>
+            <Link className={Styles.navLink} to={""}>
+              Profile
+            </Link>
+          </>
+        )}
       </div>
     </div>
   );

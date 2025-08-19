@@ -9,7 +9,8 @@
 
 body {
   background-color: whitesmoke;
-  padding-block: 5rem;
+  padding-top: 5rem;
+  padding-bottom: 1rem;
 }
 
 body.no-scroll {

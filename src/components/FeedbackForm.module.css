@@ -3,6 +3,12 @@
   padding: 1.25rem 1rem;
 }
 
+.mainContainer {
+  width: 100%;
+  max-width: 35rem;
+  margin: 0 auto;
+}
+
 .feedbackForm {
   display: flex;
   flex-direction: column;
@@ -21,6 +27,8 @@
   resize: vertical;
   min-width: 100%;
   white-space: pre-wrap;
+  max-height: 20rem;
+  min-height: 8rem;
 }
 
 textarea::-webkit-scrollbar {
@@ -54,10 +62,9 @@ textarea::-webkit-scrollbar-thumb {
     flex-direction: column;
     gap: 0;
   }
-}
-
-.btn {
-  width: 100%;
+  .btn {
+    width: 100%;
+  }
 }
 
 @media (min-width: 62rem) {

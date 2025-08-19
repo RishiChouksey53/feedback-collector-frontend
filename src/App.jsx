@@ -1,23 +1,24 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import {
-  BrowserRouter,
-  Navigate,
-  Route,
-  Routes,
-  useNavigate,
-} from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Auth from "./pages/Auth";
 import Navbar from "./components/Navbar";
-import DashboardPage from "./pages/dashboard/DashboardPage";
+import AdminPanel from "./pages/AdminPanel";
 import { MyContext } from "./MyContext";
+import DashboardPage from "./pages/DashboardPage";
 
 const App = () => {
   const [isLoginPage, setIsLoginPage] = useState(true);
+  const [count, setCount] = useState(0);
+  const [feedback, setFeedback] = useState([]);
   const [user, setUser] = useState(null);
   const providerValue = {
     user,
     setUser,
+    count,
+    setCount,
+    feedback,
+    setFeedback,
   };
 
   const navigate = useNavigate();
@@ -30,12 +31,10 @@ const App = () => {
     <MyContext.Provider value={providerValue}>
       <Navbar />
       <Routes>
-        <Route
-          path="/login"
-          element={<Auth setUser={setUser} isLoginPage={isLoginPage} />}
-        />
+        <Route path="/" element={<DashboardPage />} />
+        <Route path="/adminPanel" element={<AdminPanel />} />
+        <Route path="/login" element={<Auth isLoginPage={isLoginPage} />} />
         <Route path="/register" element={<Auth isLoginPage={!isLoginPage} />} />
-        <Route path="/" element={<DashboardPage user={user} />} />
       </Routes>
     </MyContext.Provider>
   );

@@ -1,7 +1,5 @@
 .navBar {
   position: fixed;
-  /* height: 100%;
-  max-height: 5rem; */
   height: 5rem;
   top: 0;
   left: 0;
@@ -23,7 +21,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: .5rem;
+  gap: 0.5rem;
 }
 
 .navLeft h2 {
@@ -32,15 +30,28 @@
 
 .navLeftIcon {
   background-color: rgba(0, 0, 255, 0.1);
-  padding: 0.375rem;
+  padding: 0.5rem;
   border-radius: 0.5rem;
   font-size: 1.25rem;
   color: #3c83f6;
 }
 
-.navRight div {
-  color: #3c83f6;
-  font-weight: 600;
+.navRight {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.navLink {
+  text-decoration: none;
+  color: #808080;
+  text-transform: capitalize;
+  width: fit-content;
+  font-weight: 500;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  font-size: 1rem;
+  transition: all 0.2s ease-in;
 }
 
 @media (min-width: 75rem) {
@@ -50,12 +61,30 @@
 }
 @media (min-width: 35rem) {
   .navBar {
-    padding-inline: 4rem;
+    padding-inline: 2rem;
   }
 }
 
-@media (min-width:62rem) {
-   .navLeft h2 {
+@media (min-width: 62rem) {
+  .navLeft h2 {
     font-size: 1.5rem;
-   }
+  }
+  .navBar {
+    padding-inline: 10rem;
+  }
+}
+ 
+@media (max-width: 30rem){
+  .navLeft {
+    h2 {
+      display: none;
+    }
+    p {
+      display: none;
+    }
+  }
+  .navLeftIcon {
+    font-size: 1.5rem;
+    padding: .5rem;
+  }
 }
