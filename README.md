@@ -1,12 +1,24 @@
-# React + Vite
+# Feedback Collector
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Description
+Feedback Collector is a web app to collect and manage user feedback. Users can submit feedback, and admins can view, filter, and delete feedback entries.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### User
+- Submit feedback (name, email, message)
+- View personal profile
 
-## Expanding the ESLint configuration
+### Admin
+- View all feedback entries
+- Filter feedback by keyword or date
+- Delete feedback entries
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Common
+- Sign up and login system with role-based access
+- Loading indicators while data loads
+- Toast notifications for success/error messages
+
+## Tech Stack
+- **Frontend:** React, Context API, React Router
+- **Backend:** Node.js, Express.js, MongoDB
