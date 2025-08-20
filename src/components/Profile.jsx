@@ -8,16 +8,18 @@ const Profile = () => {
 
   return (
     <div className={`${Styles.profileContainer}`}>
-      {/* Displaying user's name and username */}
-      <p>
-        <i className="fa-regular fa-user"></i> {user?.name} <br />
-        <span>@{user?.username}</span>
-      </p>
+      <div>
+        {/* Displaying user's name and username */}
+        <p>
+          <i className="fa-regular fa-user"></i> {user?.name} <br />
+          <span>@{user?.username}</span>
+        </p>
 
-      {/* Displaying user's email */}
-      <p>
-        <i className="fa-regular fa-envelope"></i> {user?.email}
-      </p>
+        {/* Displaying user's email */}
+        <p>
+          <i className="fa-regular fa-envelope"></i> {user?.email}
+        </p>
+      </div>
     </div>
   );
 };

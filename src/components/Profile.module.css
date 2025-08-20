@@ -1,22 +1,25 @@
 .profileContainer {
-  padding: 1rem;
-  border-radius: 0.5rem;
-  background-color: white;
-  color: #808080;
-  font-weight: 500;
-  border: 1.5px solid #ccc;
-  transition: all 0.2s ease;
-  max-width: 25rem;
-  margin: 0 auto;
-  margin-top: 1rem;
-  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
-.profileContainer:hover {
+.profileContainer div {
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  color: #808080;
+  border: 1.5px solid #ccc;
+  transition: all 0.2s ease;
+  width: 100%;
+  max-width: 25rem;
+}
+
+.profileContainer div:hover {
   box-shadow: 0rem 0rem 0.5rem rgba(0, 0, 0, 0.25);
 }
 
-.profileContainer p,
+.profileContainer div p,
 span {
   font-size: 0.75rem;
 }

@@ -10,11 +10,11 @@ const Loader = () => {
     // Container div to center the loader in the screen
     <div
       style={{
-        display: "flex",              // Use flexbox layout
-        justifyContent: "center",     // Center horizontally
-        alignItems: "center",         // Center vertically
-        position: "absolute",         // Position relative to the screen
-        inset: "0",                   // Stretch to cover full screen
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        position: "absolute",
+        inset: "0",
       }}
     >
       {/* HashLoader is the spinner animation */}
