@@ -5,13 +5,14 @@ import { useNavigate } from "react-router-dom";
 import { getProfile } from "../services/authServices";
 
 const DashboardPage = () => {
-  const navigate = useNavigate();
-  const { setUser } = useContext(MyContext);
+  const navigate = useNavigate(); // hook for navigation
+  const { setUser } = useContext(MyContext); // access context to set user
+
   return (
     <div style={{ padding: "1rem" }}>
-      <FeedbackForm />
+      <FeedbackForm /> {/* feedback form component */}
     </div>
   );
 };
 
-export default DashboardPage;
+export default DashboardPage; // export component

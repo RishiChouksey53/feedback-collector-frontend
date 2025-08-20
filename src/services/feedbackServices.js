@@ -1,6 +1,7 @@
 import { toast } from "react-toastify";
 import { clientServer } from "../config";
 
+// ➕ Add new feedback
 export const addFeedback = async (newFeedback) => {
   const { name, email, message } = newFeedback;
   try {
@@ -9,13 +10,14 @@ export const addFeedback = async (newFeedback) => {
       email,
       message,
     });
-    toast.success(response.data.message);
+    toast.success(response.data.message); // show success message
     return response.data;
   } catch (error) {
-    return error.response?.data || error.message;
+    return error.response?.data || error.message; // return error
   }
 };
 
+// 📌 Get all feedback
 export const getFeedback = async () => {
   try {
     const response = await clientServer.get("/feedback");
@@ -25,6 +27,7 @@ export const getFeedback = async () => {
   }
 };
 
+// 🔍 Filter feedback by keyword or date
 export const filterFeedbackData = async (filter) => {
   const response = await getFeedback();
   const existingData = response?.feedback || [];
@@ -35,38 +38,30 @@ export const filterFeedbackData = async (filter) => {
   const filtered = existingData?.filter((feedback) => {
     const feedbackDate = new Date(feedback.date);
 
-    // Keyword matching
+    // keyword match
     const matchKeyword =
       !newKeyword ||
-      String(feedback.name || "")
-        .toLowerCase()
-        .includes(newKeyword) ||
-      String(feedback.email || "")
-        .toLowerCase()
-        .includes(newKeyword) ||
-      String(feedback.message || "")
-        .toLowerCase()
-        .includes(newKeyword);
+      String(feedback.name || "").toLowerCase().includes(newKeyword) ||
+      String(feedback.email || "").toLowerCase().includes(newKeyword) ||
+      String(feedback.message || "").toLowerCase().includes(newKeyword);
 
-    // Date matching
+    // date match
     const matchDate =
-      (fromDate &&
-        toDate &&
-        fromDate <= feedbackDate &&
-        feedbackDate <= toDate) || // both dates
+      (fromDate && toDate && fromDate <= feedbackDate && feedbackDate <= toDate) || // both
       (fromDate && !toDate && feedbackDate >= fromDate) || // from only
       (!fromDate && toDate && feedbackDate <= toDate) || // to only
-      (!fromDate && !toDate); // no dates
+      (!fromDate && !toDate); // no date filter
 
     return matchKeyword && matchDate;
   });
   return filtered;
 };
 
+// ❌ Delete feedback by id
 export const deleteFeedback = async (id) => {
   try {
     const response = await clientServer.delete(`/feedback/${id}`);
-    toast.success(response.data.message);
+    toast.success(response.data.message); // show success message
     return response.data;
   } catch (error) {
     return error.response?.data || error.message;
