@@ -12,8 +12,7 @@ const Navbar = () => {
     <div className={Styles.navBar}>
       <div className={Styles.navLeft}>
         <div className={Styles.navLeftIcon}>
-          {/* <i className="fa-regular fa-message"></i> */}
-          <img src="logo.png" alt="" />
+          <i className="fa-regular fa-message"></i>
         </div>
         <div>
           <h2>Feedback Collector</h2>
