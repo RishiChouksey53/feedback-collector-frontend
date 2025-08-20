@@ -4,12 +4,21 @@ import { MyContext } from "../MyContext";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
+/**
+ * Navbar component
+ * Renders the top navigation bar with links and user actions
+ */
 const Navbar = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
+  // React Router hooks
+  const navigate = useNavigate();  // for redirecting programmatically
+  const location = useLocation();  // to check current route
+
+  // Get user state from context
   const { user, setUser } = useContext(MyContext);
+
   return (
     <div className={Styles.navBar}>
+      {/* Left side - App Logo and title */}
       <div className={Styles.navLeft}>
         <div className={Styles.navLeftIcon}>
           <i className="fa-regular fa-message"></i>
@@ -19,14 +28,10 @@ const Navbar = () => {
           <p>manage user feedback</p>
         </div>
       </div>
-      <div className={Styles.navRight}>
-        {/* <div>
-          <i className="fa-regular fa-user"></i>
-          &nbsp;
-          <span>{count}</span>
-        </div>
-        <p>Total Feedback</p> */}
 
+      {/* Right side - Navigation links */}
+      <div className={Styles.navRight}>
+        {/* Home link (always visible) */}
         <NavLink
           to="/"
           className={({ isActive }) =>
@@ -35,6 +40,8 @@ const Navbar = () => {
         >
           Home
         </NavLink>
+
+        {/* Admin panel link - only visible if user is admin */}
         {user?.role === "admin" && (
           <NavLink
             className={({ isActive }) =>
@@ -45,6 +52,8 @@ const Navbar = () => {
             Admin&nbsp;Panel
           </NavLink>
         )}
+
+        {/* Show Login if not logged in and not already on login page */}
         {location.pathname !== "/login" && !user && (
           <NavLink
             className={({ isActive }) =>
@@ -55,6 +64,8 @@ const Navbar = () => {
             Login
           </NavLink>
         )}
+
+        {/* Show SignUp if on login page */}
         {location.pathname === "/login" && (
           <NavLink
             className={({ isActive }) =>
@@ -65,20 +76,25 @@ const Navbar = () => {
             SignUp
           </NavLink>
         )}
+
+        {/* When user is logged in - show Logout and Profile */}
         {user && (
           <>
+            {/* Logout button */}
             <NavLink
               onClick={() => {
-                setUser(null);
-                navigate("/")
-                localStorage.removeItem("token");
-                toast.success("Logout successfully! ");
+                setUser(null); // clear user state
+                navigate("/"); // go to homepage
+                localStorage.removeItem("token"); // remove token
+                toast.success("Logout successfully! "); // show toast
               }}
               className={Styles.navLink}
               to={""}
             >
               Logout
             </NavLink>
+
+            {/* Profile link */}
             <NavLink
               className={({ isActive }) =>
                 `${Styles.navLink} ${isActive ? Styles.isActive : ""}`

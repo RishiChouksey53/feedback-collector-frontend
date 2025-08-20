@@ -2,6 +2,7 @@ import { toast } from "react-toastify";
 import { clientServer } from "../config";
 import { data } from "react-router-dom";
 
+// 🔹 Login user
 export const loginUser = async ({ email, password }) => {
   try {
     const response = await clientServer.post("/user/login", {
@@ -15,6 +16,7 @@ export const loginUser = async ({ email, password }) => {
   }
 };
 
+// 🔹 Register user
 export const registerUser = async ({ name, username, email, password }) => {
   try {
     const response = await clientServer.post("/user/register", {
@@ -23,7 +25,7 @@ export const registerUser = async ({ name, username, email, password }) => {
       email,
       password,
     });
-    console.log(response)
+    console.log(response);
     return response;
   } catch (error) {
     const data = error.response?.data || error.message;
@@ -31,6 +33,7 @@ export const registerUser = async ({ name, username, email, password }) => {
   }
 };
 
+// 🔹 Get user profile
 export const getProfile = async () => {
   try {
     const response = await clientServer.get("user/profile", {

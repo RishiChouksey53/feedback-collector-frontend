@@ -4,31 +4,44 @@ import { filterFeedbackData, getFeedback } from "../services/feedbackServices";
 import { MyContext } from "../MyContext";
 
 const FeedbackFilter = () => {
+  // Access global state and functions from context
   const { setFeedbackEntries, setFilterData } = useContext(MyContext);
 
-  // Filter state (keyword + date range)
+  // Local state for filter inputs (keyword, from date, to date)
   const [filter, setFilter] = useState({ from: "", to: "", keyword: "" });
 
-  // Reset filter to default values
+  /**
+   * Resets filter values back to default (empty)
+   * Also resets filterData state to false (means no filter applied)
+   */
   function resetFilterHandler() {
     setFilter({ from: "", to: "", keyword: "" });
     setFilterData(false);
   }
 
-  // Update filter state on input change
+  /**
+   * Updates filter state when input fields change
+   * @param {Object} e - Input change event
+   */
   function onChangeHandler(e) {
     const { value, name } = e.target;
+    // Spread previous filter state and update only the changed field
     setFilter((prev) => ({ ...prev, [name]: value }));
   }
 
+  /**
+   * Applies filter based on entered data (date range or keyword)
+   * Sends filter object to API and updates feedback entries
+   */
   const filterFeedbackHandler = async () => {
+    // If no filter values are entered, just return
     if (filter.from === "" && filter.to === "" && filter.keyword === "") {
       return;
     }
     try {
-      const response = await filterFeedbackData(filter);
-      setFeedbackEntries(response);
-      setFilterData(true);
+      const response = await filterFeedbackData(filter); // Call API with filter
+      setFeedbackEntries(response); // Update entries in context
+      setFilterData(true); // Mark that filter is applied
     } catch (err) {
       console.error(err);
     }
@@ -36,8 +49,10 @@ const FeedbackFilter = () => {
 
   return (
     <div className={`container ${Styles.filterContainer}`}>
+      {/* Header Section */}
       <div className={Styles.header}>
         <div>
+          {/* Filter icon */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -57,8 +72,9 @@ const FeedbackFilter = () => {
         <p>Search and filter feedback</p>
       </div>
 
+      {/* Filter input section */}
       <div className={Styles.filterChoice}>
-        {/* Keyword search */}
+        {/* Keyword search input */}
         <div>
           <label htmlFor="keyword">Search&nbsp;Keyword</label>
           <input
@@ -71,7 +87,7 @@ const FeedbackFilter = () => {
           />
         </div>
 
-        {/* Date range filter */}
+        {/* Date range filter inputs */}
         <div className={Styles.dateContainer}>
           <div>
             <label htmlFor="fromDate">From Date</label>
@@ -82,7 +98,7 @@ const FeedbackFilter = () => {
               name="from"
               placeholder="YYYY-MM-DD"
               onChange={onChangeHandler}
-              max={filter.to || undefined}
+              max={filter.to || undefined} // "from" date cannot be later than "to" date
             />
           </div>
           <div>
@@ -94,25 +110,26 @@ const FeedbackFilter = () => {
               name="to"
               placeholder="YYYY-MM-DD"
               onChange={onChangeHandler}
-              min={filter.from || undefined}
+              min={filter.from || undefined} // "to" date cannot be earlier than "from" date
             />
           </div>
         </div>
       </div>
 
+      {/* Filter action buttons */}
       <div className={Styles.filterBottom}>
-        {/* Reset filter */}
+        {/* Reset filter button */}
         <button
           onClick={() => {
             resetFilterHandler();
-            setFeedbackEntries(getFeedbacksFromLocalStorage());
+            setFeedbackEntries(getFeedbacksFromLocalStorage()); // Reset entries from local storage
           }}
           className="secondaryButton"
         >
           Reset
         </button>
 
-        {/* Apply filter */}
+        {/* Apply filter button */}
         <button onClick={filterFeedbackHandler}>Apply</button>
       </div>
     </div>
