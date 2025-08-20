@@ -9,6 +9,9 @@ export const loginUser = async ({ email, password }) => {
       email,
       password,
     });
+    if (response.status === 200) {
+      toast.success("Login successfull!", { autoClose: 1000 });
+    }
     return response.data;
   } catch (error) {
     const data = error.response?.data || error.message;

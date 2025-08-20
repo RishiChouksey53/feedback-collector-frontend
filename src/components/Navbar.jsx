@@ -10,8 +10,8 @@ import { toast } from "react-toastify";
  */
 const Navbar = () => {
   // React Router hooks
-  const navigate = useNavigate();  // for redirecting programmatically
-  const location = useLocation();  // to check current route
+  const navigate = useNavigate(); // for redirecting programmatically
+  const location = useLocation(); // to check current route
 
   // Get user state from context
   const { user, setUser } = useContext(MyContext);
@@ -19,7 +19,12 @@ const Navbar = () => {
   return (
     <div className={Styles.navBar}>
       {/* Left side - App Logo and title */}
-      <div className={Styles.navLeft}>
+      <div
+        className={Styles.navLeft}
+        onClick={() => {
+          navigate("/");
+        }}
+      >
         <div className={Styles.navLeftIcon}>
           <i className="fa-regular fa-message"></i>
         </div>
@@ -86,7 +91,7 @@ const Navbar = () => {
                 setUser(null); // clear user state
                 navigate("/"); // go to homepage
                 localStorage.removeItem("token"); // remove token
-                toast.success("Logout successfully! "); // show toast
+                toast.success("Logout successfully! ", { autoClose: 1000 }); // show toast
               }}
               className={Styles.navLink}
               to={""}
