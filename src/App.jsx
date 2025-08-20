@@ -35,7 +35,7 @@ const App = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token"); // get token from localStorage
 
-  // ✅ Fetch profile when app loads
+  // Fetch profile when app loads
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -61,14 +61,14 @@ const App = () => {
   }, [token]);
 
   return (
-    // ✅ Provide context to whole app
+    //  Provide context to whole app
     <MyContext.Provider value={providerValue}>
       <Navbar />
       {isLoading ? (
         <Loader /> // show loader while fetching
       ) : (
         <>
-          {/* ✅ Define app routes */}
+          {/*  Define app routes */}
           <Routes>
             <Route path="/" element={<DashboardPage />} />
             <Route path="/profile" element={<Profile />} />

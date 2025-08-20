@@ -5,14 +5,15 @@ import Styles from "./FeedbackEntries.module.css";
 import ConfirmDelete from "./ConfirmDelete";
 import { deleteFeedback, getFeedback } from "../services/feedbackServices";
 import { MyContext } from "../MyContext";
-
+import Loader from "./Loader";
+import { HashLoader, MoonLoader } from "react-spinners";
 /**
  * FeedbackEntries Component
  * Displays feedback list and allows delete option
  */
-const FeedbackEntries = () => {
+const FeedbackEntries = ({ isLoading, setIsLoading }) => {
   // get global values from context
-  const { feedbackEntries, setFeedbackEntries, filterData, setCount } =
+  const { feedbackEntries, setFeedbackEntries, setCount } =
     useContext(MyContext);
 
   // store feedback selected for delete
@@ -35,16 +36,21 @@ const FeedbackEntries = () => {
    * Update context state
    */
   const fetchData = async () => {
-    const response = await getFeedback();
-    setFeedbackEntries(response.feedback || []);
+    try {
+      setIsLoading(true);
+      const response = await getFeedback();
+      setFeedbackEntries(response.feedback || []);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   // load feedback data when no filter is applied
   useEffect(() => {
-    if (!filterData) {
-      fetchData();
-    }
-  }, [feedbackEntries, filterData]);
+    fetchData();
+  }, []);
 
   /**
    * Delete the selected feedback
@@ -52,6 +58,7 @@ const FeedbackEntries = () => {
    */
   async function onDeleteHandler() {
     try {
+      setIsLoading(true);
       await deleteFeedback(selectFeedback._id);
       fetchData();
     } catch (err) {
@@ -90,55 +97,61 @@ const FeedbackEntries = () => {
         </div>
 
         {/* feedback cards container */}
-        <div className={Styles.cardContainer}>
-          {/* if no feedback is found */}
-          {feedbackEntries?.length === 0 && (
-            <div className={Styles.notFound}>
-              <i className="fa-regular fa-message"></i>
-              <h3>No feedback found</h3>
-            </div>
-          )}
-
-          {/* if feedback exists, map and show */}
-          {feedbackEntries?.length !== 0 &&
-            feedbackEntries?.map((feedback) => (
-              <div key={feedback._id} className={Styles.card}>
-                {/* card header with info and delete */}
-                <div className={Styles.cardHeading}>
-                  <div className={Styles.cardInfo}>
-                    <h4>
-                      <i className="fa-regular fa-user"></i>&nbsp;
-                      {feedback?.name}
-                    </h4>
-                    <p>
-                      <i className="fa-regular fa-envelope"></i>&nbsp;
-                      {feedback?.email}
-                    </p>
-                  </div>
-
-                  {/* delete button - opens confirm modal */}
-                  <div
-                    onClick={() => {
-                      setSelectFeedback(feedback);
-                      setIsOpen(true);
-                    }}
-                    className={`secondaryButton ${Styles.deleteBtn}`}
-                  >
-                    <i className="fa-solid fa-trash"></i>
-                  </div>
-                </div>
-
-                {/* feedback message */}
-                <p className={Styles.cardBody}>{feedback?.message}</p>
-
-                {/* feedback created date */}
-                <p className={Styles.cardDate}>
-                  <i className="fa-regular fa-calendar"></i>
-                  {new Date(feedback?.createdAt).toLocaleDateString("en-GB")}
-                </p>
+        {isLoading ? (
+          <div className={Styles.notFound}>
+            <div className={Styles.loader}></div>
+          </div>
+        ) : (
+          <div className={Styles.cardContainer}>
+            {/* if no feedback is found */}
+            {feedbackEntries?.length === 0 && (
+              <div className={Styles.notFound}>
+                <i className="fa-regular fa-message"></i>
+                <h3>No feedback found</h3>
               </div>
-            ))}
-        </div>
+            )}
+
+            {/* if feedback exists, map and show */}
+            {feedbackEntries?.length !== 0 &&
+              feedbackEntries?.map((feedback) => (
+                <div key={feedback._id} className={Styles.card}>
+                  {/* card header with info and delete */}
+                  <div className={Styles.cardHeading}>
+                    <div className={Styles.cardInfo}>
+                      <h4>
+                        <i className="fa-regular fa-user"></i>&nbsp;
+                        {feedback?.name}
+                      </h4>
+                      <p>
+                        <i className="fa-regular fa-envelope"></i>&nbsp;
+                        {feedback?.email}
+                      </p>
+                    </div>
+
+                    {/* delete button - opens confirm modal */}
+                    <div
+                      onClick={() => {
+                        setSelectFeedback(feedback);
+                        setIsOpen(true);
+                      }}
+                      className={`secondaryButton ${Styles.deleteBtn}`}
+                    >
+                      <i className="fa-solid fa-trash"></i>
+                    </div>
+                  </div>
+
+                  {/* feedback message */}
+                  <p className={Styles.cardBody}>{feedback?.message}</p>
+
+                  {/* feedback created date */}
+                  <p className={Styles.cardDate}>
+                    <i className="fa-regular fa-calendar"></i>
+                    {new Date(feedback?.createdAt).toLocaleDateString("en-GB")}
+                  </p>
+                </div>
+              ))}
+          </div>
+        )}
       </div>
 
       {/* show confirm delete modal only when isOpen is true */}

@@ -85,6 +85,7 @@
 }
 
 .notFound {
+  min-height: 9rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -124,3 +125,14 @@
   color: #808080;
   padding-top: 0.5rem;
 }
+
+
+.loader {
+  width: 50px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 7px solid lightblue;
+  border-right-color: #3b82f6;
+  animation: l2 1s infinite linear;
+}
+@keyframes l2 {to{transform: rotate(1turn)}}
