@@ -1,4 +1,6 @@
 .notFound {
+  position: absolute;
+  inset: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -8,13 +10,17 @@
   padding: 1rem;
 }
 
-.notFound i {
+.notFound p {
   color: darkslategray;
-  font-size: 2.5rem;
+  font-weight: 500;
 }
 
-.notFound h3 {
-  font-size: 1.25rem;
+.notFound h1 {
+  font-size: 5rem;
   font-weight: 500;
   color: darkslategray;
+}
+
+.link {
+  text-decoration: none;
 }

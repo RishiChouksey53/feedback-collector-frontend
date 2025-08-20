@@ -1,45 +1,38 @@
-/**
- * Add new feedback to feedbackData in localStorage and return the updated array.
- *
- * @param {Object} newFeedback - Feedback object to add
- * @returns {Array} Updated feedback array
- */
-export const addFeedback = (newFeedback) => {
-  const existingFeedbacks =
-    JSON.parse(localStorage.getItem("feedbackData")) || [];
+import { toast } from "react-toastify";
+import { clientServer } from "../config";
 
-  const updatedFeedbacks = [...existingFeedbacks, newFeedback];
-
-  localStorage.setItem("feedbackData", JSON.stringify(updatedFeedbacks));
-
-  return updatedFeedbacks;
+export const addFeedback = async (newFeedback) => {
+  const { name, email, message } = newFeedback;
+  try {
+    const response = await clientServer.post("/feedback", {
+      name,
+      email,
+      message,
+    });
+    toast.success(response.data.message);
+    return response.data;
+  } catch (error) {
+    return error.response?.data || error.message;
+  }
 };
 
-/**
- * Get all feedbacks stored in localStorage.
- *
- * @returns {Array} Array of feedback objects from localStorage
- */
-export const getFeedbacksFromLocalStorage = () => {
-  const existingFeedbacks =
-    JSON.parse(localStorage.getItem("feedbackData")) || [];
-  return existingFeedbacks;
+export const getFeedback = async () => {
+  try {
+    const response = await clientServer.get("/feedback");
+    return response.data;
+  } catch (error) {
+    return error.response?.data || error.message;
+  }
 };
 
-/**
- * Filter feedbacks from localStorage based on keyword and/or date range.
- *
- * @param {Object} filter - Filter object containing optional `keyword`, `from`, and `to` properties.
- * @returns {Array} Filtered array of feedback objects.
- */
-export const filterFeedbackData = (filter) => {
-  const existingData = JSON.parse(localStorage.getItem("feedbackData")) || [];
-
+export const filterFeedbackData = async (filter) => {
+  const response = await getFeedback();
+  const existingData = response?.feedback || [];
   const newKeyword = filter.keyword?.toLowerCase().trim() || "";
   const fromDate = filter.from ? new Date(filter.from) : null;
   const toDate = filter.to ? new Date(filter.to) : null;
 
-  const filtered = existingData.filter((feedback) => {
+  const filtered = existingData?.filter((feedback) => {
     const feedbackDate = new Date(feedback.date);
 
     // Keyword matching
@@ -67,19 +60,15 @@ export const filterFeedbackData = (filter) => {
 
     return matchKeyword && matchDate;
   });
-
   return filtered;
 };
 
-/**
- * Delete a feedback from localStorage by its ID and return the updated array.
- *
- * @param {string} id - The ID of the feedback to delete.
- * @returns {Array} Updated array of feedbacks after deletion.
- */
-export const deleteFeedback = (id) => {
-  const existingData = getFeedbacksFromLocalStorage();
-  const filtered = existingData.filter((feedback) => feedback.id !== id);
-  localStorage.setItem("feedbackData", JSON.stringify(filtered));
-  return filtered;
+export const deleteFeedback = async (id) => {
+  try {
+    const response = await clientServer.delete(`/feedback/${id}`);
+    toast.success(response.data.message);
+    return response.data;
+  } catch (error) {
+    return error.response?.data || error.message;
+  }
 };

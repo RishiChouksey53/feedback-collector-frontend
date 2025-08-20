@@ -1,17 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Styles from "./FeedbackFilter.module.css";
 import {
   filterFeedbackData,
-  getFeedbacksFromLocalStorage,
+  getFeedback,
 } from "../services/feedbackServices";
+import { MyContext } from "../MyContext";
 
-const FeedbackFilter = ({ setFeedbackEntries }) => {
+const FeedbackFilter = () => {
+  const { setFeedbackEntries, setFilterData } = useContext(MyContext);
+
   // Filter state (keyword + date range)
   const [filter, setFilter] = useState({ from: "", to: "", keyword: "" });
 
   // Reset filter to default values
   function resetFilterHandler() {
     setFilter({ from: "", to: "", keyword: "" });
+    setFilterData(false);
   }
 
   // Update filter state on input change
@@ -19,6 +23,19 @@ const FeedbackFilter = ({ setFeedbackEntries }) => {
     const { value, name } = e.target;
     setFilter((prev) => ({ ...prev, [name]: value }));
   }
+
+  const filterFeedbackHandler = async () => {
+    if (filter.from === "" && filter.to === "" && filter.keyword === "") {
+      return;
+    }
+    try {
+      const response = await filterFeedbackData(filter);
+      setFeedbackEntries(response);
+      setFilterData(true);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <div className={`container ${Styles.filterContainer}`}>
@@ -97,13 +114,7 @@ const FeedbackFilter = ({ setFeedbackEntries }) => {
         </button>
 
         {/* Apply filter */}
-        <button
-          onClick={() => {
-            setFeedbackEntries(filterFeedbackData(filter));
-          }}
-        >
-          Apply
-        </button>
+        <button onClick={filterFeedbackHandler}>Apply</button>
       </div>
     </div>
   );

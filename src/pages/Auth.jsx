@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Styles from "./Auth.module.css"; // CSS Modules import
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
@@ -7,12 +7,14 @@ import { ScaleLoader } from "react-spinners";
 import { loginUser, registerUser } from "../services/authServices";
 import { useNavigate } from "react-router-dom";
 import { MyContext } from "../MyContext";
+import { toast } from "react-toastify";
 
-const Auth = ({isLoginPage }) => {
+const Auth = ({ isLoginPage }) => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
+  const [isError, setIsError] = useState(false);
+  const [message, setMessage] = useState("");
   const { setUser } = useContext(MyContext);
 
   const [formData, setFormData] = useState({
@@ -36,24 +38,45 @@ const Auth = ({isLoginPage }) => {
         const data = await loginUser({ email, password });
         localStorage.setItem("token", data.token);
         setUser(data.user);
-        console.log(data.message);
+        setMessage(data.message);
       } else {
         const data = await registerUser({ name, username, email, password });
-        console.log(data);
+        if (data.status === 201) {
+          toast.success(data?.data.message);
+          setTimeout(() => {
+            toast.success("please login to continue")
+            navigate("/login");
+          }, 3000);
+        }
       }
     } catch (error) {
       console.error("Auth failed", error);
+      setMessage(error);
+      setIsError(true);
     } finally {
       setIsLoading(false);
     }
   };
 
+  useEffect(() => {
+    setTimeout(() => {
+      setIsError(false);
+      setMessage("");
+    }, 3000);
+  }, [message]);
+
   return (
     <div className={Styles["signin-container"]}>
       <form className={Styles["signin-form"]} onSubmit={authHandler}>
-        {/* <h2 className={Styles.logo}>Feedback Collector</h2> */}
-        <h1>{isLoginPage ? "Sign in" : "Sign up"}</h1>
-
+        {message && (
+          <p
+            className={Styles.message}
+            style={{ color: isError ? "red" : "green" }}
+          >
+            {message}
+          </p>
+        )}
+        <h2>{isLoginPage ? "Sign in" : "Sign up"}</h2>
         {!isLoginPage && (
           <>
             <label>Name</label>
@@ -93,7 +116,7 @@ const Auth = ({isLoginPage }) => {
           <input
             onChange={onChangeHandler}
             type={showPassword ? "text" : "password"}
-            placeholder="••••••••••"
+            placeholder="••••••"
             value={formData.password}
             name="password"
             required
@@ -121,22 +144,9 @@ const Auth = ({isLoginPage }) => {
           )}
         </button>
 
-        {/* Todo */}
-        {/* {isLogin && (
-          <a href="#" className={Styles.forgot}>
-            Forgot your password?
-          </a>
-        )} */}
-
         <div className={Styles.divider}>
           <span>or</span>
         </div>
-
-        {/* Todo */}
-        {/* <button className={Styles["google-btn"]}>
-          <FontAwesomeIcon icon={faGoogle} /> Sign {isLogin ? "in" : "up"} with
-          Google
-        </button> */}
 
         <p className={Styles["signup-link"]}>
           Don't have an account?{" "}

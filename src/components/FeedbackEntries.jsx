@@ -1,10 +1,13 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Styles from "./FeedbackEntries.module.css";
 import ConfirmDelete from "./ConfirmDelete";
-import { deleteFeedback } from "../services/feedbackServices";
-import NotFound from "./NotFound";
+import { deleteFeedback, getFeedback } from "../services/feedbackServices";
+import { MyContext } from "../MyContext";
 
-const FeedbackEntries = ({ feedbackEntries, setFeedbackEntries, setCount }) => {
+const FeedbackEntries = () => {
+  const { feedbackEntries, setFeedbackEntries, filterData, setCount } =
+    useContext(MyContext);
+
   // State for tracking feedback to delete
   const [selectFeedback, setSelectFeedback] = useState(null);
 
@@ -20,10 +23,24 @@ const FeedbackEntries = ({ feedbackEntries, setFeedbackEntries, setCount }) => {
     setSelectFeedback(null);
   }
 
-  //Todo
-  function onDeleteHandler() {
-    setFeedbackEntries(deleteFeedback(selectFeedback.id));
-    setCount((prev) => prev - 1);
+  const fetchData = async () => {
+    const response = await getFeedback();
+    setFeedbackEntries(response.feedback || []);
+  };
+
+  useEffect(() => {
+    if (!filterData) {
+      fetchData();
+    }
+  }, [feedbackEntries, filterData]);
+
+  async function onDeleteHandler() {
+    try {
+      await deleteFeedback(selectFeedback._id);
+      fetchData();
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   return (
@@ -55,14 +72,14 @@ const FeedbackEntries = ({ feedbackEntries, setFeedbackEntries, setCount }) => {
         </div>
         <div className={Styles.cardContainer}>
           {feedbackEntries?.length === 0 && (
-            <NotFound
-              text="No feedback found"
-              fontAwesomIcon={<i className="fa-regular fa-message"></i>}
-            />
+            <div className={Styles.notFound}>
+              <i className="fa-regular fa-message"></i>
+              <h3>No feedback found</h3>
+            </div>
           )}
-          {feedbackEntries &&
+          {feedbackEntries?.length !== 0 &&
             feedbackEntries?.map((feedback) => (
-              <div key={feedback.id} className={Styles.card}>
+              <div key={feedback._id} className={Styles.card}>
                 <div className={Styles.cardHeading}>
                   <div className={Styles.cardInfo}>
                     <h4>
@@ -88,7 +105,7 @@ const FeedbackEntries = ({ feedbackEntries, setFeedbackEntries, setCount }) => {
                 <p className={Styles.cardBody}>{feedback?.message}</p>
                 <p className={Styles.cardDate}>
                   <i className="fa-regular fa-calendar"></i>
-                  {new Date(feedback?.date).toLocaleDateString("en-GB")}
+                  {new Date(feedback?.createdAt).toLocaleDateString("en-GB")}
                 </p>
               </div>
             ))}
