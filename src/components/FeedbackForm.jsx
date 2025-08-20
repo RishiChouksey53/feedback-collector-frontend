@@ -32,7 +32,6 @@ const FeedbackForm = () => {
       setIsLoading(true); // Show loading state
       const data = await addFeedback(formData); // Call API with form data
       setFeedbackEntries(data.feedback); // Update feedback list in context
-      console.log(data); // For debugging
     } catch (err) {
       console.error(err); // Log error
     } finally {

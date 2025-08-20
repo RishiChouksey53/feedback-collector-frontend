@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import FeedbackFilter from "../components/FeedbackFilter";
 import FeedbackEntries from "../components/FeedbackEntries";
 
 // Admin panel page
 const AdminPanel = () => {
+  const [isLoading, setIsLoading] = useState(false);
   return (
     <div
       style={{
@@ -21,10 +22,10 @@ const AdminPanel = () => {
       </h3>
 
       {/* Filter section */}
-      <FeedbackFilter />
+      <FeedbackFilter isLoading={isLoading} setIsLoading={setIsLoading} />
 
       {/* Feedback list */}
-      <FeedbackEntries />
+      <FeedbackEntries isLoading={isLoading} setIsLoading={setIsLoading} />
     </div>
   );
 };

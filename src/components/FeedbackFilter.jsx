@@ -3,7 +3,7 @@ import Styles from "./FeedbackFilter.module.css";
 import { filterFeedbackData, getFeedback } from "../services/feedbackServices";
 import { MyContext } from "../MyContext";
 
-const FeedbackFilter = () => {
+const FeedbackFilter = ({ isLoading, setIsLoading }) => {
   // Access global state and functions from context
   const { setFeedbackEntries, setFilterData } = useContext(MyContext);
 
@@ -14,9 +14,17 @@ const FeedbackFilter = () => {
    * Resets filter values back to default (empty)
    * Also resets filterData state to false (means no filter applied)
    */
-  function resetFilterHandler() {
+  async function resetFilterHandler() {
     setFilter({ from: "", to: "", keyword: "" });
-    setFilterData(false);
+    try {
+      setIsLoading(true);
+      const data = await getFeedback();
+      setFeedbackEntries(data.feedback);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   /**
@@ -35,7 +43,9 @@ const FeedbackFilter = () => {
    */
   const filterFeedbackHandler = async () => {
     // If no filter values are entered, just return
+    setIsLoading(true);
     if (filter.from === "" && filter.to === "" && filter.keyword === "") {
+      setIsLoading(false);
       return;
     }
     try {
@@ -44,6 +54,8 @@ const FeedbackFilter = () => {
       setFilterData(true); // Mark that filter is applied
     } catch (err) {
       console.error(err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -122,7 +134,6 @@ const FeedbackFilter = () => {
         <button
           onClick={() => {
             resetFilterHandler();
-            setFeedbackEntries(getFeedbacksFromLocalStorage()); // Reset entries from local storage
           }}
           className="secondaryButton"
         >
