@@ -41,22 +41,22 @@ const Auth = ({ isLoginPage }) => {
         // login
         const data = await loginUser({ email, password });
         localStorage.setItem("token", data.token);
+        console.log(data);
         setUser(data.user);
         setMessage(data.message);
       } else {
         // register
         const data = await registerUser({ name, username, email, password });
         if (data.status === 201) {
-          toast.success(data?.data.message);
+          toast.success("Register successful, pease login to continue");
           setTimeout(() => {
-            toast.success("please login to continue");
             navigate("/login");
-          }, 3000);
+          }, 1000);
         }
       }
     } catch (error) {
-      console.error("Auth failed", error);
-      setMessage(error);
+      console.log(error);
+      setMessage(error.message);
       setIsError(true);
     } finally {
       setIsLoading(false);

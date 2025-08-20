@@ -108,7 +108,6 @@ const FeedbackFilter = ({ isLoading, setIsLoading }) => {
               type="date"
               value={filter.from}
               name="from"
-              placeholder="YYYY-MM-DD"
               onChange={onChangeHandler}
               max={filter.to || undefined} // "from" date cannot be later than "to" date
             />
@@ -120,7 +119,6 @@ const FeedbackFilter = ({ isLoading, setIsLoading }) => {
               type="date"
               value={filter.to}
               name="to"
-              placeholder="YYYY-MM-DD"
               onChange={onChangeHandler}
               min={filter.from || undefined} // "to" date cannot be earlier than "from" date
             />

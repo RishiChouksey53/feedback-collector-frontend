@@ -1,6 +1,5 @@
 import { toast } from "react-toastify";
 import { clientServer } from "../config";
-import { data } from "react-router-dom";
 
 // Login user
 export const loginUser = async ({ email, password }) => {
@@ -14,8 +13,7 @@ export const loginUser = async ({ email, password }) => {
     }
     return response.data;
   } catch (error) {
-    const data = error.response?.data || error.message;
-    return data;
+    throw error?.response?.data || error.message;
   }
 };
 
@@ -31,8 +29,7 @@ export const registerUser = async ({ name, username, email, password }) => {
     console.log(response);
     return response;
   } catch (error) {
-    const data = error.response?.data || error.message;
-    return data;
+    throw error?.response?.data || error.message;
   }
 };
 
