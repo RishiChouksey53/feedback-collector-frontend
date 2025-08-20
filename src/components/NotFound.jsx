@@ -1,11 +1,20 @@
 import React from "react";
 import Styles from "./NotFound.module.css";
+import { useNavigate } from "react-router-dom";
 
 const NotFound = ({ fontAwesomIcon, text }) => {
+  const navigate = useNavigate();
   return (
     <div className={Styles.notFound}>
-      {fontAwesomIcon}
-      <h3>{text}</h3>
+      <h1>404</h1>
+      <p>Oops! Page not found.</p>
+      <button
+        onClick={() => {
+          navigate("/");
+        }}
+      >
+        Go Home
+      </button>
     </div>
   );
 };

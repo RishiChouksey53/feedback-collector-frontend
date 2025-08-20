@@ -3,26 +3,29 @@ import Styles from "./FeedbackForm.module.css";
 import { v4 as uuidv4 } from "uuid";
 import { addFeedback } from "../services/feedbackServices";
 import { MyContext } from "../MyContext";
+import { toast } from "react-toastify";
 
 const FeedbackForm = () => {
   const { setFeedbackEntries, setCount } = useContext(MyContext);
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
-    date: "",
-    id: "",
   });
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    const newFeedback = {
-      ...formData,
-      date: new Date().toLocaleDateString("en-CA"),
-      id: uuidv4(),
-    };
-    setFeedbackEntries(addFeedback(newFeedback));
-    setCount((prev) => prev + 1);
+    try {
+      setIsLoading(true);
+      const data = await addFeedback(formData);
+      setFeedbackEntries(data.feedback);
+      console.log(data);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
     setFormData({
       name: "",
       email: "",
@@ -78,7 +81,7 @@ const FeedbackForm = () => {
           onChange={handleChange}
           required
         />
-        <button type="submit" className={Styles.btn}>
+        <button type="submit" disabled={isLoading} className={Styles.btn}>
           Submit
         </button>
       </form>

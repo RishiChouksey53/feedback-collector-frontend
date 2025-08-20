@@ -1,7 +1,8 @@
 import { useContext } from "react";
 import Styles from "./Navbar.module.css";
 import { MyContext } from "../MyContext";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -11,7 +12,8 @@ const Navbar = () => {
     <div className={Styles.navBar}>
       <div className={Styles.navLeft}>
         <div className={Styles.navLeftIcon}>
-          <i className="fa-regular fa-message"></i>
+          {/* <i className="fa-regular fa-message"></i> */}
+          <img src="logo.png" alt="" />
         </div>
         <div>
           <h2>Feedback Collector</h2>
@@ -25,57 +27,67 @@ const Navbar = () => {
           <span>{count}</span>
         </div>
         <p>Total Feedback</p> */}
-        {/* {location.pathname !== "/login" &&
-          location.pathname !== "/register" &&
-          (user ? (
-            <button
-              onClick={() => {
-                setUser(null);
-              }}
-            >
-              Sign Out
-            </button>
-          ) : (
-            <button
-              onClick={() => {
-                navigate("/login");
-              }}
-            >
-              Sign in
-            </button>
-          ))} */}
-        <Link className={Styles.navLink} to={"/"}>
+
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            `${Styles.navLink} ${isActive ? Styles.isActive : ""}`
+          }
+        >
           Home
-        </Link>
+        </NavLink>
         {user?.role === "admin" && (
-          <Link className={Styles.navLink} to={"/adminPanel"}>
-            Admin Panel
-          </Link>
+          <NavLink
+            className={({ isActive }) =>
+              `${Styles.navLink} ${isActive ? Styles.isActive : ""}`
+            }
+            to={"/admin"}
+          >
+            Admin&nbsp;Panel
+          </NavLink>
         )}
         {location.pathname !== "/login" && !user && (
-          <Link className={Styles.navLink} to={"/login"}>
+          <NavLink
+            className={({ isActive }) =>
+              `${Styles.navLink} ${isActive ? Styles.isActive : ""}`
+            }
+            to={"/login"}
+          >
             Login
-          </Link>
+          </NavLink>
         )}
         {location.pathname === "/login" && (
-          <Link className={Styles.navLink} to={"/register"}>
+          <NavLink
+            className={({ isActive }) =>
+              `${Styles.navLink} ${isActive ? Styles.isActive : ""}`
+            }
+            to={"/register"}
+          >
             SignUp
-          </Link>
+          </NavLink>
         )}
         {user && (
           <>
-            <Link
+            <NavLink
               onClick={() => {
                 setUser(null);
+                navigate("/")
+                localStorage.removeItem("token");
+                toast.success("Logout successfully! ");
               }}
               className={Styles.navLink}
               to={""}
             >
               Logout
-            </Link>
-            <Link className={Styles.navLink} to={""}>
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                `${Styles.navLink} ${isActive ? Styles.isActive : ""}`
+              }
+              to={"/profile"}
+            >
               Profile
-            </Link>
+            </NavLink>
           </>
         )}
       </div>

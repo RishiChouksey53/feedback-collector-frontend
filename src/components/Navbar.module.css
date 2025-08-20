@@ -21,21 +21,28 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 0.625rem;
 }
 
 .navLeft h2 {
-  font-size: 1.375rem;
+  font-size: 1.25rem;
 }
 
 .navLeftIcon {
-  background-color: rgba(0, 0, 255, 0.1);
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-  font-size: 1.25rem;
-  color: #3c83f6;
+  display: flex;
+  background-color: whitesmoke;
+  padding: 0.325rem;
+  border-radius: 50%;
+  transition: all 0.2s ease;
 }
 
+.navLeftIcon:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.navLeftIcon img {
+  height: 2.25rem;
+}
 .navRight {
   display: flex;
   gap: 1rem;
@@ -73,8 +80,8 @@
     padding-inline: 10rem;
   }
 }
- 
-@media (max-width: 30rem){
+
+@media (max-width: 40rem) {
   .navLeft {
     h2 {
       display: none;
@@ -83,8 +90,14 @@
       display: none;
     }
   }
-  .navLeftIcon {
-    font-size: 1.5rem;
-    padding: .5rem;
-  }
+}
+
+.navLink:hover {
+ border-color: #3c83f6;
+  color: #3c83f6;
+}
+
+.isActive {
+  border-color: #3c83f6;
+  color: #3c83f6;
 }
