@@ -40,6 +40,6 @@ export const getProfile = async () => {
     });
     return response.data;
   } catch (error) {
-    return error.response?.data || error.message;
+    throw error.response?.data || error.message;
   }
 };

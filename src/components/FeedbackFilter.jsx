@@ -1,9 +1,6 @@
 import React, { useContext, useState } from "react";
 import Styles from "./FeedbackFilter.module.css";
-import {
-  filterFeedbackData,
-  getFeedback,
-} from "../services/feedbackServices";
+import { filterFeedbackData, getFeedback } from "../services/feedbackServices";
 import { MyContext } from "../MyContext";
 
 const FeedbackFilter = () => {
@@ -83,6 +80,7 @@ const FeedbackFilter = () => {
               type="date"
               value={filter.from}
               name="from"
+              placeholder="YYYY-MM-DD"
               onChange={onChangeHandler}
               max={filter.to || undefined}
             />
@@ -94,6 +92,7 @@ const FeedbackFilter = () => {
               type="date"
               value={filter.to}
               name="to"
+              placeholder="YYYY-MM-DD"
               onChange={onChangeHandler}
               min={filter.from || undefined}
             />

@@ -29,10 +29,9 @@
 }
 
 .navLeftIcon {
-  display: flex;
   background-color: whitesmoke;
-  padding: 0.325rem;
-  border-radius: 50%;
+  padding: 0.5rem;
+  border-radius: .5rem;
   transition: all 0.2s ease;
 }
 
@@ -40,8 +39,8 @@
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-.navLeftIcon img {
-  height: 2.25rem;
+.navLeftIcon i {
+  font-size: 1.5rem;
 }
 .navRight {
   display: flex;
