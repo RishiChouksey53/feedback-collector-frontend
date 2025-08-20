@@ -97,7 +97,7 @@ const FeedbackEntries = ({ isLoading, setIsLoading }) => {
         </div>
 
         {/* feedback cards container */}
-        {isLoading ? (
+        {!isLoading ? (
           <div className={Styles.notFound}>
             <div className={Styles.loader}></div>
           </div>

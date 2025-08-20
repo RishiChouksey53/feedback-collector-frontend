@@ -1,10 +1,8 @@
 import React, { useContext, useState } from "react";
 import Styles from "./FeedbackForm.module.css";
-import { v4 as uuidv4 } from "uuid"; // Used for generating unique IDs (not used here yet)
 import { addFeedback } from "../services/feedbackServices"; // API call to add feedback
 import { MyContext } from "../MyContext"; // Global context
-import { toast } from "react-toastify"; // For showing notifications (not used yet)
-
+import { ScaleLoader } from "react-spinners";
 const FeedbackForm = () => {
   // Access context values (functions to update feedback entries and count)
   const { setFeedbackEntries, setCount } = useContext(MyContext);
@@ -110,7 +108,7 @@ const FeedbackForm = () => {
 
         {/* Submit button */}
         <button type="submit" disabled={isLoading} className={Styles.btn}>
-          Submit
+          {isLoading ? <div className={Styles.loader}></div> : "Submit"}
         </button>
       </form>
     </div>

@@ -55,6 +55,7 @@ textarea::-webkit-scrollbar-thumb {
 .btn {
   margin-inline-start: auto;
   margin-top: 0.625rem;
+  min-width: 128px;
 }
 
 @media (max-width: 30rem) {
@@ -72,3 +73,15 @@ textarea::-webkit-scrollbar-thumb {
     font-size: 1.5rem;
   }
 }
+
+/* HTML: <div class="loader"></div> */
+.loader {
+  margin: 0 auto;
+  width: 1.25rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 4px solid rgba(255, 255, 255, 0.125);
+  border-right-color: white;
+  animation: l2 1s infinite linear;
+}
+@keyframes l2 {to{transform: rotate(1turn)}}
