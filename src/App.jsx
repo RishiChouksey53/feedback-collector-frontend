@@ -60,30 +60,26 @@ const App = () => {
     token && fetchProfile(); // run only if token exists
   }, [token]);
 
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return (
     //  Provide context to whole app
     <MyContext.Provider value={providerValue}>
       <Navbar />
-      {isLoading ? (
-        <Loader /> // show loader while fetching
-      ) : (
-        <>
-          {/*  Define app routes */}
-          <Routes>
-            <Route path="/" element={<DashboardPage />} />
-            <Route path="/profile" element={<Profile />} />
-            {user?.role === "admin" && (
-              <Route path="/admin" element={<AdminPanel />} />
-            )}
-            <Route path="/login" element={<Auth isLoginPage={isLoginPage} />} />
-            <Route
-              path="/register"
-              element={<Auth isLoginPage={!isLoginPage} />}
-            />
-            <Route path="/*" element={<NotFound />} /> {/* 404 page */}
-          </Routes>
-        </>
-      )}
+
+      {/*  Define app routes */}
+      <Routes>
+        <Route path="/" element={<DashboardPage />} />
+        <Route path="/profile" element={<Profile />} />
+        {user?.role === "admin" && (
+          <Route path="/admin" element={<AdminPanel />} />
+        )}
+        <Route path="/login" element={<Auth isLoginPage={isLoginPage} />} />
+        <Route path="/register" element={<Auth isLoginPage={!isLoginPage} />} />
+        <Route path="/*" element={<NotFound />} /> {/* 404 page */}
+      </Routes>
     </MyContext.Provider>
   );
 };
