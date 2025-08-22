@@ -58,28 +58,26 @@ const Navbar = () => {
           </NavLink>
         )}
 
-        {/* Show Login if not logged in and not already on login page */}
-        {location.pathname !== "/login" && !user && (
-          <NavLink
-            className={({ isActive }) =>
-              `${Styles.navLink} ${isActive ? Styles.isActive : ""}`
-            }
-            to={"/login"}
-          >
-            Login
-          </NavLink>
-        )}
+        {!user && (
+          <>
+            <NavLink
+              className={({ isActive }) =>
+                `${Styles.navLink} ${isActive ? Styles.isActive : ""}`
+              }
+              to={"/login"}
+            >
+              Login
+            </NavLink>
 
-        {/* Show SignUp if on login page */}
-        {location.pathname === "/login" && (
-          <NavLink
-            className={({ isActive }) =>
-              `${Styles.navLink} ${isActive ? Styles.isActive : ""}`
-            }
-            to={"/register"}
-          >
-            SignUp
-          </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                `${Styles.navLink} ${isActive ? Styles.isActive : ""}`
+              }
+              to={"/register"}
+            >
+              SignUp
+            </NavLink>
+          </>
         )}
 
         {/* When user is logged in - show Logout and Profile */}
