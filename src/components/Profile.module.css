@@ -4,6 +4,7 @@
 }
 
 .profileContainer div {
+  background-color: white;
   margin: 1rem;
   padding: 1rem;
   border-radius: 0.5rem;
@@ -21,5 +22,5 @@
 
 .profileContainer div p,
 span {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
 }

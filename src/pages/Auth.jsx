@@ -41,7 +41,6 @@ const Auth = ({ isLoginPage }) => {
         // login
         const data = await loginUser({ email, password });
         localStorage.setItem("token", data.token);
-        console.log(data);
         setUser(data.user);
         setMessage(data.message);
       } else {
