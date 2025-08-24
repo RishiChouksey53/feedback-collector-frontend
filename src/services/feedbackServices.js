@@ -35,12 +35,16 @@ export const getFeedback = async () => {
 export const filterFeedbackData = async (filter) => {
   const response = await getFeedback();
   const existingData = response?.feedback || [];
+
   const newKeyword = filter.keyword?.toLowerCase().trim() || "";
   const fromDate = filter.from ? new Date(filter.from) : null;
   const toDate = filter.to ? new Date(filter.to) : null;
 
+  if (toDate) toDate.setHours(23, 59, 59, 999); // set to end of the day
+  if (fromDate) fromDate.setHours(0, 0, 0, 0); // set to start of the day
+
   const filtered = existingData?.filter((feedback) => {
-    const feedbackDate = new Date(feedback.date);
+    const feedbackDate = new Date(feedback.createdAt);
 
     // keyword match
     const matchKeyword =
