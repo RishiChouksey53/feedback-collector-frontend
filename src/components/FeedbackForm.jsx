@@ -41,8 +41,6 @@ const FeedbackForm = () => {
       name: "",
       email: "",
       message: "",
-      date: "",
-      id: "",
     });
   }
 
