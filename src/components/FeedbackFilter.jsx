@@ -95,6 +95,11 @@ const FeedbackFilter = ({ isLoading, setIsLoading }) => {
             value={filter.keyword}
             name="keyword"
             onChange={onChangeHandler}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                filterFeedbackHandler();
+              }
+            }}
             type="text"
           />
         </div>
