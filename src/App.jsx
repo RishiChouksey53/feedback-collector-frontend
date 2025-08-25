@@ -18,7 +18,6 @@ const App = () => {
   const [feedbackEntries, setFeedbackEntries] = useState([]); // store feedback
   const [user, setUser] = useState(null); // store logged-in user
   const [isLoading, setIsLoading] = useState(false); // loader state
-  const [filterData, setFilterData] = useState(false); // filter toggle
 
   // ✅ Context values shared with all components
   const providerValue = {
@@ -28,8 +27,6 @@ const App = () => {
     setCount,
     feedbackEntries,
     setFeedbackEntries,
-    filterData,
-    setFilterData,
   };
 
   const navigate = useNavigate();
