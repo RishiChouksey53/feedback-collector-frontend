@@ -44,10 +44,10 @@ const FeedbackFilter = ({ isLoading, setIsLoading }) => {
   const filterFeedbackHandler = async () => {
     // If no filter values are entered, just return
     setIsLoading(true);
-    if (filter.from === "" && filter.to === "" && filter.keyword === "") {
-      setIsLoading(false);
-      return;
-    }
+    // if (filter.from === "" && filter.to === "" && filter.keyword === "") {
+    //   setIsLoading(false);
+    //   return;
+    // }
     try {
       const response = await filterFeedbackData(filter); // Call API with filter
       setFeedbackEntries(response); // Update entries in context
