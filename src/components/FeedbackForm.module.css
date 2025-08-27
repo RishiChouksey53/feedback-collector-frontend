@@ -85,3 +85,8 @@ textarea::-webkit-scrollbar-thumb {
   animation: l2 1s infinite linear;
 }
 @keyframes l2 {to{transform: rotate(1turn)}}
+
+
+.customRating .MuiRating-icon {
+  font-size: 100px; /* adjust the star size here */
+}
