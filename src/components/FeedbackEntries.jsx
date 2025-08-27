@@ -126,6 +126,9 @@ const FeedbackEntries = ({ isLoading, setIsLoading }) => {
                         <i className="fa-regular fa-envelope"></i>&nbsp;
                         {feedback?.email}
                       </p>
+                      <h5 style={{ fontWeight: "500", fontSize: ".75rem" }}>
+                        Rating&nbsp;{feedback?.rating}
+                      </h5>
                     </div>
 
                     {/* delete button - opens confirm modal */}

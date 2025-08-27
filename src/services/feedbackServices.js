@@ -3,12 +3,13 @@ import { clientServer } from "../config";
 
 // Add new feedback
 export const addFeedback = async (newFeedback) => {
-  const { name, email, message } = newFeedback;
+  const { name, email, message, rating } = newFeedback;
   try {
     const response = await clientServer.post("/feedback", {
       name,
       email,
       message,
+      rating,
     });
     toast.success(response.data.message); // show success message
     return response.data;

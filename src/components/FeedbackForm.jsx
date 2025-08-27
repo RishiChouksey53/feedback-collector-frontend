@@ -2,7 +2,9 @@ import React, { useContext, useState } from "react";
 import Styles from "./FeedbackForm.module.css";
 import { addFeedback } from "../services/feedbackServices"; // API call to add feedback
 import { MyContext } from "../MyContext"; // Global context
-import { ScaleLoader } from "react-spinners";
+import { Star } from "@mui/icons-material";
+import Rating from "@mui/material/Rating";
+
 const FeedbackForm = () => {
   // Access context values (functions to update feedback entries and count)
   const { setFeedbackEntries, setCount } = useContext(MyContext);
@@ -15,6 +17,7 @@ const FeedbackForm = () => {
     name: "",
     email: "",
     message: "",
+    rating: 1,
   });
 
   /**
@@ -41,6 +44,7 @@ const FeedbackForm = () => {
       name: "",
       email: "",
       message: "",
+      rating: 1,
     });
   }
 
@@ -103,6 +107,23 @@ const FeedbackForm = () => {
           onChange={handleChange}
           required
         />
+
+        <div>
+          <label>Rate our service</label>
+          <br />
+          <Rating
+            onChange={(event, newValue) => {
+              setFormData((prev) => ({
+                ...prev,
+                rating: newValue,
+              }));
+            }}
+            name="small-golden"
+            value={formData.rating}
+            icon={<Star style={{ fontSize: 20, color: "gold" }} />}
+            emptyIcon={<Star style={{ fontSize: 20, color: "lightgray" }} />}
+          />
+        </div>
 
         {/* Submit button */}
         <button type="submit" disabled={isLoading} className={Styles.btn}>
